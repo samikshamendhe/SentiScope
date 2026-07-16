@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SentiScope AI</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+html{
+height:100%;
+}
+
+body{
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:30px;
+
+background:
+
+radial-gradient(circle at top left,#2563eb22,transparent 25%),
+
+radial-gradient(circle at bottom right,#06b6d422,transparent 25%),
+
+linear-gradient(135deg,#020617,#081225,#020617);
+
+overflow-x:hidden;
+
+color:white;
+
+}
+
+/* Background Grid */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+background-image:
+
+radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);
+
+background-size:40px 40px;
+
+opacity:.15;
+
+z-index:-1;
+
+}
+
+/* Main Container */
+
+.container{
+
+width:96%;
+
+max-width:1550px;
+
+min-height:92vh;
+
+background:rgba(15,23,42,.85);
+
+backdrop-filter:blur(20px);
+
+border-radius:35px;
+
+padding:45px;
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+
+0 0 60px rgba(37,99,235,.25);
+
+}
+
+/* Header */
+
+.header{
+
+text-align:center;
+
+margin-bottom:45px;
+
+}
+
+.logo{
+
+font-size:72px;
+
+font-weight:800;
+
+background:
+
+linear-gradient(90deg,
+
+#67d7ff,
+
+#38bdf8,
+
+#2563eb);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+}
+
+.subtitle{
+
+margin-top:12px;
+
+font-size:22px;
+
+color:#d1d5db;
+
+}
+
+/* Main Layout */
+
+.main{
+
+display:grid;
+
+grid-template-columns:2fr 1fr;
+
+gap:35px;
+
+}
+
+/* Cards */
+
+.card{
+
+background:#0f172a;
+
+border-radius:25px;
+
+padding:28px;
+
+box-shadow:
+
+0 0 25px rgba(0,0,0,.35);
+
+transition:.35s;
+
+}
+
+.card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:
+
+0 0 35px rgba(56,189,248,.18);
+
+}
+
+/* Label */
+
+label{
+
+display:block;
+
+font-size:20px;
+
+font-weight:600;
+
+margin-bottom:15px;
+
+}
+
+/* Textarea */
+
+textarea{
+
+width:100%;
+
+height:360px;
+
+resize:none;
+
+padding:22px;
+
+font-size:18px;
+
+background:#111827;
+
+border:none;
+
+outline:none;
+
+border-radius:18px;
+
+color:white;
+
+transition:.35s;
+
+}
+
+textarea:focus{
+
+box-shadow:0 0 25px #2563eb;
+
+}
+
+textarea::placeholder{
+
+color:#94a3b8;
+
+}
+
+/* Dropdown */
+
+select{
+
+width:100%;
+
+padding:18px;
+
+font-size:18px;
+
+border:none;
+
+outline:none;
+
+border-radius:18px;
+
+background:#111827;
+
+color:white;
+
+margin-bottom:25px;
+
+}
+
+/* Button */
+
+button{
+
+width:100%;
+
+padding:20px;
+
+font-size:20px;
+
+font-weight:700;
+
+border:none;
+
+border-radius:18px;
+
+cursor:pointer;
+
+color:white;
+
+background:
+
+linear-gradient(90deg,#2563eb,#06b6d4);
+
+transition:.35s;
+
+box-shadow:
+
+0 15px 40px rgba(37,99,235,.40);
+
+}
+
+button:hover{
+
+transform:translateY(-5px);
+
+box-shadow:
+
+0 20px 55px rgba(6,182,212,.55);
+
+}
+.result-card{
+
+margin-top:35px;
+
+padding:35px;
+
+border-radius:25px;
+
+background:#111827;
+
+border:1px solid rgba(255,255,255,.08);
+
+text-align:center;
+
+box-shadow:0 0 35px rgba(56,189,248,.18);
+
+animation:fadeUp .6s ease;
+
+}
+
+.result-card h2{
+
+font-size:48px;
+
+margin-top:18px;
+
+font-weight:700;
+
+}
+
+.result-card p{
+
+margin-top:15px;
+
+font-size:22px;
+
+color:#d1d5db;
+
+line-height:1.6;
+
+}
+
+.emoji{
+
+font-size:80px;
+
+animation:bounce 2s infinite;
+
+}
+
+footer{
+
+margin-top:45px;
+
+text-align:center;
+
+font-size:17px;
+
+color:#94a3b8;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes bounce{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-10px);
+
+}
+
+}
+
+@media(max-width:1000px){
+
+.container{
+
+padding:25px;
+
+}
+
+.logo{
+
+font-size:48px;
+
+}
+
+.subtitle{
+
+font-size:18px;
+
+}
+
+.main{
+
+grid-template-columns:1fr;
+
+}
+
+textarea{
+
+height:230px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<div class="logo">
+
+🤖 SentiScope
+
+</div>
+
+<div class="subtitle">
+
+Analyze Movie Reviews using Machine Learning & NLP
+
+</div>
+
+</div>
+
+<form action="/predict" method="POST">
+
+<div class="main">
+
+<div class="card">
+
+<label>
+
+📝 Enter Your Review
+
+</label>
+
+<textarea
+
+name="review"
+
+placeholder="Type your movie review here..."
+
+required>{{ review if review else "" }}</textarea>
+
+</div>
+
+<div class="card">
+
+<label>
+
+⭐ Select Rating
+
+</label>
+
+<select name="stars" required>
+
+<option value="" disabled {% if not stars %}selected{% endif %}>
+
+Choose Rating
+
+</option>
+
+<option value="1">⭐ 1 Star</option>
+
+<option value="2">⭐⭐ 2 Stars</option>
+
+<option value="3">⭐⭐⭐ 3 Stars</option>
+
+<option value="4">⭐⭐⭐⭐ 4 Stars</option>
+
+<option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+
+</select>
+
+<button type="submit">
+
+🚀 Analyze Review
+
+</button>
+
+</div>
+
+</div>
+        {% if prediction %}
+
+        <div class="result-card">
+
+            <div class="emoji">
+                {{ emoji }}
+            </div>
+
+            <h2 style="color:{{ color }};">
+                {{ prediction }}
+            </h2>
+
+            <p>
+                {{ message }}
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </form>
+
+    <footer>
+
+        <p>
+            🚀 Built with Flask • Python • NLP • Logistic Regression
+        </p>
+
+    </footer>
+
+</div>
+
+<script>
+
+// Keep selected rating after prediction
+
+const stars = "{{ stars if stars else '' }}";
+
+if(stars){
+
+document.querySelector("select").value = stars;
+
+}
+
+</script>
+
+</body>
+
+</html>
